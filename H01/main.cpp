@@ -12,7 +12,7 @@ using namespace std;
 //global variable/array type
 int A[100];
 
-//struct called Node and its for the pointers
+//struct called Node and the struct will be for the pointers and list
 struct Node
 {
     int x;
