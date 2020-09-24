@@ -19,16 +19,15 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <time.h>
-
+#include <stack>
 using namespace std;
 
 /**
  * Stack
- * 
+ *
  * Description:
  *      Integer array based stack implementation
- * 
+ *
  * Public Methods:
  *      - Stack()
  *      - Stack(int)
@@ -37,264 +36,200 @@ using namespace std;
  *      - bool empty()
  *      - bool full()
  *      - void Print()
- * 
+ *
  * Private Methods:
  *      - None
- * 
- * Usage: 
- * 
+ *
+ * Usage:
+ *
  *  Stack S;
  *  S.Push(80);
  *  S.Push(90);
  *  S.Print();
  *  int x = S.Pop();
- *      
+ *
  */
 class Stack {
 private:
-    int *S;       //array pointer
-    int capacity; //max stack size
-    int top;      //current top (index)
-    int size;     //current num items
+	int* S;       //array pointer
+	int capacity; //max stack size
+	int top;      //current top (index)
+	int size;     //current num items
+
 public:
-    /**
-     * Stack:
-     *    Constructor.
-     * Params:
-     *    void
-     * 
-     * Returns:
-     *     Void
-     */
-    Stack() {
-        capacity = 10;          // set array size
-        S = new int[capacity];  // allocate new memory
-        top = -1;               // initialize top of stack
-        size = 0;               // set stack to empty
-    }
 
-    /**
-     * Stack:
-     *    Constructor.
-     * Params:
-     *    int : capacity
-     * 
-     * Returns:
-     *     Void
-     */
-    Stack(int cap) {
-        capacity = cap;         // set array size      
-        S = new int[capacity];  // allocate new memory
-        top = -1;               // initialize top of stack
-        size = 0;               // set stack to empty
-    }
+	/**
+	 * Stack:
+	 *    Constructor.
+	 * Params:
+	 *    void
+	 *
+	 * Returns:
+	 *     Void
+	 */
+	Stack() {
+		capacity = 10;          // set array size
+		S = new int[capacity];  // allocate new memory
+		top = -1;               // initialize top of stack
+		size = 0;               // set stack to empty
+	}
 
-    /**
-     * Push:
-     *    Push item onto stack.
-     * Params:
-     *    int : data
-     * 
-     * Returns:
-     *     Void
-     */
-    void Push(int data) {
-        top++;              // move top of stack up
-        size++;             // increment size
-        S[top] = data;      // add item to array
-    }
+	/**
+	 * Stack:
+	 *    Constructor.
+	 * Params:
+	 *    int : capacity
+	 *
+	 * Returns:
+	 *     Void
+	 */
+	Stack(int cap) {
+		capacity = cap;         // set array size      
+		S = new int[capacity];  // allocate new memory
+		top = -1;               // initialize top of stack
+		size = 0;               // set stack to empty
+	}
 
-    /**
-     * Pop:
-     *    remove item from stack.
-     * Params:
-     *    void
-     * 
-     * Returns:
-     *     int
-     */
-    int Pop() {
-        int data = S[top];  // pull item from stack
-        top--;              // shrink the stack
-        size--;             // update our size
-        return data;        // send item back
-    }
+	/**
+	 * Push:
+	 *    Push item onto stack.
+	 * Params:
+	 *    int : data
+	 *
+	 * Returns:
+	 *     Void
+	 */
+	void Push(int data) {
+		top++;              // move top of stack up
+		size++;             // increment size
+		S[top] = data;      // add item to array
+	}
 
-    /**
-     * Empty:
-     *    is the stack empty?
-     * Params:
-     *    void
-     * 
-     * Returns:
-     *     bool : true == stack is empty
-     */
-    bool Empty() {
-		if(Pop()==-1)
+	/**
+	 * Pop:
+	 *    remove item from stack.
+	 * Params:
+	 *    void
+	 *
+	 * Returns:
+	 *     int
+	 */
+	int Pop() {
+		int data = S[top];  // pull item from stack
+		top--;              // shrink the stack
+		size--;             // update our size
+		return data;        // send item back
+	}
+
+	/**
+	 * Empty:
+	 *    is the stack empty?
+	 * Params:
+	 *    void
+	 *
+	 * Returns:
+	 *     bool : true == stack is empty
+	 */
+	bool Empty() {
+		if (Pop() == -1)
 		{
 			cout << "Error:Stack empty!\n";
 		}
-        
-        return top == -1;
-		
-    }
 
-    /**
-     * Full:
-     *    is the stack full?
-     * Params:
-     *    void
-     * 
-     * Returns:
-     *     bool : true == stack is full
-     */
+		return top == -1;
 
-    bool Full() {
-        //giving s2 list a 2x the capacity size as the first one
+	}
 
-		if (  top == capacity - 1){
-		int *S2=new int[2*capacity];
-        
-		
-		for(int i=0;i<size;i++)
-        {
-            S2[i]=S[i];
-        }
+	/**
+	 * Full:
+	 *    is the stack full?
+	 * Params:
+	 *    void
+	 *
+	 * Returns:
+	 *     bool : true == stack is full
+	 */
 
-    delete [] S; //delete the old array (S)
-    S=S2;        //S2 equals S, no dangling pointers
+	bool Full() {
+		//giving s2 list a 2x the capacity size as the first one
+
+		if (top == capacity - 1)
+		{
+			int* S2 = new int[2 * capacity];
+
+
+			for (int i = 0; i < size; i++)
+			{
+				S2[i] = S[i];
+			}
+
+			delete[] S;    //delete the old array (S)
 		}
 
-	  return top == capacity - 1;
-    }
+		return top == capacity - 1;
+	}
 
-    /**
-     * Print:
-     *    Used so we can inspect our stack.
-     * Params:
-     *    void
-     * 
-     * Returns:
-     *     void
-     */    
-    void Print() {
-        for (int i = top; i >= 0; i--) {
-            cout << S[i] << endl;
-        }
-    }
+	/**
+	 * Print:
+	 *    Used so we can inspect our stack.
+	 * Params:
+	 *    void
+	 *
+	 * Returns:
+	 *     void
+	 */
+	void Print() {
+		for (int i = top; i >= 0; i--) {
+			cout << S[i] << endl;
 
-    /**
-     * Overloaded ostream <<
-     *    Lets us print a stack using cout
-     * Params:
-     *    ostream &os   : instance of ostream passed in by reference
-     *    const Stack   : instance of stack passed in using const so 
-     *                    it cannot be changed
-     * 
-     * Returns:
-     *     ostream 
-     */
-    friend ostream &operator<<(ostream &os, const Stack s) {
-        os << "Overloaded!!" << endl;
-        for (int i = s.top; i >= 0; i--) {
-            os << s.S[i] << endl;
-        }
-        return os;
-    }
+		}
+	}
+
+
+	int count()
+	{
+		return (top + 1);
+	}
 };
 
-/**
- * Person
- * 
- * Description:
- *      Example struct that represents a person.
- * 
- * Usage: 
- * 
- *  Person P1;
- * 
- *  P1.fname = "firstName";
- *  P1.lname = "lastName";
- *  P1.age = 99
- *  cout<<P1<<endl;
- * 
- *  Person P2("billy","bob",11);
- *  cout<<P2<<endl;
- */
-struct Person {
-    string fname;
-    string lname;
-    int age;
-
-    Person();
-    Person(string, string, int);
-
-    friend ostream &operator<<(ostream &os, const Person p) {
-        os << p.fname << "," << p.lname << " : " << p.age << endl;
-        return os;
-    }
-};
-
-/**
- * Constructor:
- *    Constructs the person structure
- * Params:
- *    void
- * 
- * Returns:
- *     void
- */   
-Person::Person() {
-    fname = "";
-    lname = "";
-    age = 0;
-}
-
-/**
- * Constructor:
- *    Constructs the person structure
- * Params:
- *    string    : first name
- *    string    : last name
- *    int       : persons age
- * 
- * Returns:
- *     void
- */ 
-Person::Person(string f, string l, int a) {
-    fname = f;
-    lname = l;
-    age = a;
-}
 
 int main() {
-    Stack S1;           // calls default constructor
-    Stack S2(25);       // calls overloaded constructor
+	Stack S1;           // calls default constructor
+	Stack S2(25);       // calls overloaAded constructor
+	int max_size = -INT64_MAX;
+	int starting = S2.count();
+	string command;
+	int value;
+	ifstream infile;
+	infile.open("input.txt");
 
-   
-    S1.Push(7);
-    S1.Push(4);
-    S1.Push(8);
-    S1.Push(2);
-    S1.Print();
+	cout << "Name: Marquise Blue" << endl;
+	cout << "Program: P01" << endl;
+	cout << "Date: 9/11/2020\n";
 
-    cout << "Popped a: " << S1.Pop() << endl;
-    cout << "Popped a: " << S1.Pop() << endl;
-    
-    S1.Push(9);
 
-    //S1.Print();           // old way to print!
-    cout << S1 << endl;     // cool way to print
+	while (!infile.eof()) {
+		infile >> command;           // read push or pop  
+		//cout << command << " ";
 
-    Person P1;              // calls default constructor (no params)
 
-    P1.fname = "suzy";      // adds values to person P1
-    P1.lname = "queue";
-    P1.age = 14;
+		if (command == "push") {  // if command is a push we need
+			infile >> value;      // to read a value in as well
+			//cout << value;
+			S2.Push(value);
+		}
+		else {
+			S2.Pop();
+		}
 
-    cout << P1 << endl;     // calls overloaded ostream method
+		max_size = max(max_size, S2.count());
+		cout << endl;
+	}
+	cout << "The counting functions:\n";
+	cout << "Starting  " << starting << endl;
+	cout << "Max  " << max_size << endl;
+	cout << "Current " << S2.count() << endl;
 
-    Person P2("dudley", "doowright", 30);   // uses overloaded constructor
-
-    cout << P2 << endl;     // calls overloaded ostream method
+	system("pause");
+	return 0;
 }
