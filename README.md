@@ -7,7 +7,7 @@
 ## Assignments
 |   #   | File        | Description                      |
 | :---: | --------    | -------------------------------- |
-|   1   | [H01](./H01)| Setting up my GitHub             |
+|   1   | [H01](./https://github.com/MarquiseJBlue/2143-OOP-Blue/tree/master/Assignments/H01)| Setting up my GitHub             |
 |   2   | [p01](./p01)| Stack upgrade program            |
 |   3   | [H02](./H02)| OOP definitions                  |
 |   4   | [P02.1](./P02.1)|Program 2 part 1              |
