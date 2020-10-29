@@ -56,4 +56,4 @@ This assignment is making a UML Diagram of our understanding of Blackjack. Creat
 > -print
 
 
-![Image of my UML flowchart](https://github.com/MarquiseJBlue/2143-OOP-Blue/blob/master/Assignments/p02/UML%20class%20(1).png)
+![UML flowchart](https://github.com/MarquiseJBlue/2143-OOP-Blue/blob/master/Assignments/p02/UML%20class%20(1).png)
